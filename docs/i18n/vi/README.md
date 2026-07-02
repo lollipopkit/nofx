@@ -77,11 +77,7 @@ NOFX tổ chức nghiên cứu, xây dựng chiến lược, thực thi và giá
 
 ## Truy cập mô hình AI
 
-NOFX tự động định tuyến AI inference qua [Claw402](https://claw402.ai). Người dùng không cần cấu hình nhà cung cấp mô hình, quản lý API key hoặc duy trì tài khoản AI riêng. Terminal truy cập các mô hình được hỗ trợ theo nhu cầu qua hạ tầng pay-as-you-go của Claw402 và định tuyến qua kênh ưu đãi chính thức.
-
-| Nhà cung cấp | Truy cập |
-| :--- | :--- |
-| **Claw402** | [Truy cập mô hình AI pay-as-you-go với ưu đãi chính thức](https://claw402.ai) |
+NOFX hỗ trợ nhiều nhà cung cấp mô hình AI. Kết nối DeepSeek, OpenAI, Google và các nhà cung cấp khác bằng API key của bạn, hoặc dùng bất kỳ endpoint tương thích OpenAI nào (bao gồm self-hosted).
 
 ---
 
@@ -90,7 +86,7 @@ NOFX tự động định tuyến AI inference qua [Claw402](https://claw402.ai)
 | Năng lực | Mô tả |
 | :--- | :--- |
 | **AI trading terminal** | Không gian làm việc thống nhất cho cổ phiếu Mỹ, hàng hóa, ngoại hối và crypto |
-| **Truy cập mô hình AI** | Tự động kết nối nhà cung cấp được hỗ trợ qua Claw402 |
+| **Truy cập mô hình AI** | Nhiều nhà cung cấp với API key của bạn (hỗ trợ endpoint tương thích OpenAI) |
 | **Kết nối sàn** | Binance, Bybit, OKX, Hyperliquid, Bitget, KuCoin, Gate, Aster, Lighter |
 | **Strategy Studio** | Universe thị trường, chỉ báo, kiểm soát rủi ro và logic chiến lược |
 | **Cạnh tranh mô hình** | So sánh AI trader bằng hiệu suất live và bảng xếp hạng |
@@ -244,8 +240,8 @@ curl -fsSL https://raw.githubusercontent.com/NoFxAiOS/nofx/main/install.sh | bas
     │    Engine     │    Agent     │   Risk Controls   │
     ├──────────────┴──────────────┴───────────────────┤
     │                 AI Model Layer                    │
-    │    Unified provider access through Claw402        │
-    │    Model routing · payment · execution support    │
+    │    Multi-provider access with user-owned keys     │
+    │    Model routing · execution support              │
     ├─────────────────────────────────────────────────┤
     │              Exchange Connectivity                │
     │ Binance · Bybit · OKX · Hyperliquid · Bitget     │

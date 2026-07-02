@@ -77,11 +77,7 @@ NOFX organizes research, strategy construction, execution, and monitoring around
 
 ## AI model access
 
-NOFX routes AI inference through [Claw402](https://claw402.ai) automatically. Users do not need to configure model providers, manage API keys, or maintain separate AI accounts. The terminal accesses supported models on demand through Claw402's pay-as-you-go infrastructure, with traffic routed through the official discounted channel.
-
-| Provider | Access |
-| :------- | :----- |
-| **Claw402** | [Access pay-as-you-go AI models with official discount](https://claw402.ai) |
+NOFX works with multiple AI model providers. Bring your own API key for DeepSeek, OpenAI, Google, and other supported providers, or point the terminal at any OpenAI-compatible endpoint (self-hosted included).
 
 ---
 
@@ -90,7 +86,7 @@ NOFX routes AI inference through [Claw402](https://claw402.ai) automatically. Us
 | Capability                  | Description                                                                 |
 | :-------------------------- | :-------------------------------------------------------------------------- |
 | **AI trading terminal**     | Unified workspace for US stocks, commodities, forex, and crypto workflows   |
-| **AI model access**         | Unified model access through Claw402-supported providers                    |
+| **AI model access**         | Multiple providers with your own keys, incl. OpenAI-compatible endpoints    |
 | **Exchange connectivity**   | Binance, Bybit, OKX, Hyperliquid, Bitget, KuCoin, Gate, Aster, and Lighter  |
 | **Strategy Studio**         | Market universes, indicators, risk controls, and strategy logic             |
 | **Model competition**       | Compare model-driven traders with live performance and leaderboard tracking  |
@@ -244,8 +240,8 @@ curl -fsSL https://raw.githubusercontent.com/NoFxAiOS/nofx/main/install.sh | bas
     │    Engine     │    Agent     │   Risk Controls   │
     ├──────────────┴──────────────┴───────────────────┤
     │                 AI Model Layer                    │
-    │    Unified provider access through Claw402        │
-    │    Model routing · payment · execution support    │
+    │    Multi-provider access with user-owned keys     │
+    │    Model routing · execution support              │
     ├─────────────────────────────────────────────────┤
     │              Exchange Connectivity                │
     │ Binance · Bybit · OKX · Hyperliquid · Bitget     │

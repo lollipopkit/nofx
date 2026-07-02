@@ -14,11 +14,6 @@ interface BeginnerGuideCardsProps {
   onCreateTrader: () => void
 }
 
-function truncateAddress(address: string) {
-  if (address.length <= 12) return address
-  return `${address.slice(0, 6)}...${address.slice(-4)}`
-}
-
 export function BeginnerGuideCards({
   language,
   claw402Ready,
@@ -26,7 +21,6 @@ export function BeginnerGuideCards({
   strategyReady,
   traderReady,
   canCreateTrader,
-  walletAddress,
   onQuickSetupClaw402,
   onOpenExchange,
   onOpenStrategy,
@@ -38,17 +32,17 @@ export function BeginnerGuideCards({
     {
       key: 'model',
       icon: Brain,
-      title: isZh ? '1. Fast AI' : '1. Fast AI',
+      title: isZh ? '1. Configure AI' : '1. Configure AI',
       desc: isZh
-        ? 'Start with Claw402 + DeepSeek. No model picking needed for the first run.'
-        : 'Start with Claw402 + DeepSeek. No model picking needed for the first run.',
-      meta: walletAddress
+        ? 'Add an AI model with your own API key (DeepSeek, OpenAI, or any OpenAI-compatible endpoint).'
+        : 'Add an AI model with your own API key (DeepSeek, OpenAI, or any OpenAI-compatible endpoint).',
+      meta: claw402Ready
         ? isZh
-          ? `Wallet ${truncateAddress(walletAddress)}`
-          : `Wallet ${truncateAddress(walletAddress)}`
+          ? 'Model ready'
+          : 'Model ready'
         : isZh
-          ? 'Pay per call with Base USDC'
-          : 'Pay per call with Base USDC',
+          ? 'Bring your own API key'
+          : 'Bring your own API key',
       ready: claw402Ready,
       actionLabel: claw402Ready
         ? isZh
