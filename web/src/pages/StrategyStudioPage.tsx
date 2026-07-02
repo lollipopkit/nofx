@@ -51,7 +51,7 @@ type Scope =
 type ListMode = 'claw402' | 'pool'
 
 const scopeOptions: Array<{ value: Scope; zh: string; en: string }> = [
-  { value: 'all', zh: 'All Claw402', en: 'All Claw402' },
+  { value: 'all', zh: 'All markets', en: 'All markets' },
   { value: 'stock', zh: 'US Stocks', en: 'US Stocks' },
   { value: 'crypto', zh: 'Crypto', en: 'Crypto' },
   { value: 'commodity', zh: 'Commodities', en: 'Commodities' },
@@ -153,9 +153,9 @@ const profileOptions: Array<{
     bars: 30,
     margin: 1.0,
     promptZh:
-      'Careful mode: open only when the Claw402 board direction, Signal Lab, cost/liquidation heatmap and raw candles agree; wait on conflicts.',
+      'Careful mode: open only when the signal board direction, Signal Lab, cost/liquidation heatmap and raw candles agree; wait on conflicts.',
     promptEn:
-      'Careful mode: open only when the Claw402 board direction, Signal Lab, cost/liquidation heatmap and raw candles agree; wait on conflicts.',
+      'Careful mode: open only when the signal board direction, Signal Lab, cost/liquidation heatmap and raw candles agree; wait on conflicts.',
   },
   {
     value: 'balanced',
@@ -171,9 +171,9 @@ const profileOptions: Array<{
     bars: 30,
     margin: 1.0,
     promptZh:
-      'Balanced mode: prioritize top Claw402-ranked symbols when Signal Lab agrees with raw candles; use the liquidation heatmap for stop and target zones.',
+      'Balanced mode: prioritize top-ranked board symbols when Signal Lab agrees with raw candles; use the liquidation heatmap for stop and target zones.',
     promptEn:
-      'Balanced mode: prioritize top Claw402-ranked symbols when Signal Lab agrees with raw candles; use the liquidation heatmap for stop and target zones.',
+      'Balanced mode: prioritize top-ranked board symbols when Signal Lab agrees with raw candles; use the liquidation heatmap for stop and target zones.',
   },
   {
     value: 'active',
@@ -189,9 +189,9 @@ const profileOptions: Array<{
     bars: 50,
     margin: 1.0,
     promptZh:
-      'Active mode: follow strong Claw402 signals faster, but require Signal Lab confirmation, avoid crowded liquidation zones, and always set explicit stops.',
+      'Active mode: follow strong board signals faster, but require Signal Lab confirmation, avoid crowded liquidation zones, and always set explicit stops.',
     promptEn:
-      'Active mode: follow strong Claw402 signals faster, but require Signal Lab confirmation, avoid crowded liquidation zones, and always set explicit stops.',
+      'Active mode: follow strong board signals faster, but require Signal Lab confirmation, avoid crowded liquidation zones, and always set explicit stops.',
   },
 ]
 
@@ -1160,7 +1160,7 @@ export function StrategyStudioPage() {
       setListMode('claw402')
     } catch (err) {
       setSignalsError(
-        err instanceof Error ? err.message : 'Claw402.ai board unavailable'
+        err instanceof Error ? err.message : 'Signal board unavailable'
       )
     } finally {
       setSignalsLoading(false)
@@ -1327,19 +1327,19 @@ export function StrategyStudioPage() {
           min_risk_reward_ratio: 3,
         }),
         custom_prompt:
-          'NOFX Autopilot reads the Claw402.ai board each cycle, fetches Signal Lab and cost/liquidation structure for every candidate, confirms with raw OHLCV candles, then trades only when the full-size setup is justified.',
+          'NOFX Autopilot reads the signal board each cycle, fetches Signal Lab and cost/liquidation structure for every candidate, confirms with raw OHLCV candles, then trades only when the full-size setup is justified.',
         prompt_sections: undefined,
       }
       const created = await api.createStrategy({
         name: text(
           language,
-          'NOFX Claw402 Auto Strategy',
-          'NOFX Claw402 Auto Strategy'
+          'NOFX Auto Strategy',
+          'NOFX Auto Strategy'
         ),
         description: text(
           language,
-          'The single built-in strategy: read the Claw402.ai board, fetch per-symbol details, then trade with raw candles.',
-          'The single built-in strategy: read the Claw402.ai board, fetch per-symbol details, then trade with raw candles.'
+          'The single built-in strategy: read the signal board, fetch per-symbol details, then trade with raw candles.',
+          'The single built-in strategy: read the signal board, fetch per-symbol details, then trade with raw candles.'
         ),
         config: defaultConfig,
       })
@@ -1435,7 +1435,7 @@ export function StrategyStudioPage() {
         min_risk_reward_ratio: 3,
       }),
       custom_prompt:
-        'Run NOFX Autopilot: use the Claw402.ai ranking as the candidate universe, verify each candidate with Signal Lab and cost/liquidation structure, confirm timing with raw OHLCV candles, and only open full-size 10x positions when the setup is strong enough.',
+        'Run NOFX Autopilot: use the signal-board ranking as the candidate universe, verify each candidate with Signal Lab and cost/liquidation structure, confirm timing with raw OHLCV candles, and only open full-size 10x positions when the setup is strong enough.',
       prompt_sections: undefined,
     }
     return base
@@ -1535,7 +1535,7 @@ export function StrategyStudioPage() {
         name: selectedStrategy.name,
         description:
           selectedStrategy.description ||
-          'Autonomous market selection powered by Claw402.ai Signal Lab, liquidation structure, and raw candles.',
+          'Autonomous market selection powered by the signal board, liquidation structure, and raw candles.',
         config,
       })
       await api.activateStrategy(selectedStrategy.id)
@@ -1728,8 +1728,8 @@ export function StrategyStudioPage() {
             <p className="mt-1 text-sm text-nofx-text-muted">
               {text(
                 language,
-                'Autonomous market selection powered by Claw402.ai Signal Lab, liquidation structure, and raw candles.',
-                'Autonomous market selection powered by Claw402.ai Signal Lab, liquidation structure, and raw candles.'
+                'Autonomous market selection powered by the signal board, liquidation structure, and raw candles.',
+                'Autonomous market selection powered by the signal board, liquidation structure, and raw candles.'
               )}
             </p>
           </div>
@@ -1888,7 +1888,7 @@ export function StrategyStudioPage() {
                       Signal Board
                     </div>
                     <div className="mt-1 text-xs text-nofx-text-muted">
-                      Live Claw402.ai ranking · Signal Lab · liquidation map
+                      Live signal ranking · Signal Lab · liquidation map
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -1910,7 +1910,7 @@ export function StrategyStudioPage() {
                     >
                       <Sparkles className="h-3.5 w-3.5" />
                       {signals.length === 0
-                        ? 'Load Claw402 board'
+                        ? 'Load signal board'
                         : 'Claw402 board'}
                     </button>
                     <button
