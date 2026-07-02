@@ -8,10 +8,10 @@ on:
       - release/stable
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - main
-      - dev
+  # PR validation is handled by pr-docker-check.yml (build-only, no push).
+  # This workflow's metadata tags rely on {{branch}}, which is empty on
+  # pull_request events and produces an invalid image tag (leading "-"),
+  # so it only runs on push/tag/dispatch where images are actually pushed.
   workflow_dispatch:
 
 env:
