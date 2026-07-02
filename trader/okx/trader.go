@@ -12,6 +12,7 @@ import (
 	"io"
 	"net/http"
 	"nofx/logger"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -40,6 +41,10 @@ type OKXTrader struct {
 	apiKey     string
 	secretKey  string
 	passphrase string
+
+	// OKX demo-trading environment (x-simulated-trading header). Demo API
+	// keys require "1"; production keys require "0" (error 50101 otherwise).
+	simulatedTrading bool
 
 	// Margin mode setting used for new orders and leverage changes.
 	isCrossMargin bool
@@ -121,6 +126,7 @@ func NewOKXTrader(apiKey, secretKey, passphrase string) *OKXTrader {
 		apiKey:           apiKey,
 		secretKey:        secretKey,
 		passphrase:       passphrase,
+		simulatedTrading: os.Getenv("OKX_SIMULATED_TRADING") == "1",
 		isCrossMargin:    true,
 		httpClient:       httpClient,
 		cacheDuration:    15 * time.Second,
@@ -228,8 +234,13 @@ func (t *OKXTrader) doRequest(method, path string, body interface{}) ([]byte, er
 	req.Header.Set("OK-ACCESS-TIMESTAMP", timestamp)
 	req.Header.Set("OK-ACCESS-PASSPHRASE", t.passphrase)
 	req.Header.Set("Content-Type", "application/json")
-	// Set request header
-	req.Header.Set("x-simulated-trading", "0")
+	// OKX demo-trading keys require x-simulated-trading: 1 (error 50101
+	// otherwise); production keys require 0. See NewOKXTrader.
+	if t.simulatedTrading {
+		req.Header.Set("x-simulated-trading", "1")
+	} else {
+		req.Header.Set("x-simulated-trading", "0")
+	}
 
 	resp, err := t.httpClient.Do(req)
 	if err != nil {
