@@ -27,7 +27,6 @@ export function BeginnerGuideCards({
   onOpenStrategy,
   onCreateTrader,
 }: BeginnerGuideCardsProps) {
-  const isZh = language === 'zh'
 
   const cards = [
     {
@@ -52,9 +51,7 @@ export function BeginnerGuideCards({
       desc: pick(language, '连接交易所,让 AI 能够真正下单。', 'Connect an exchange so the AI can actually place trades.', 'Hubungkan bursa agar AI benar-benar bisa bertransaksi.'),
       meta: exchangeReady
         ? pick(language, '已就绪', 'Ready', 'Siap')
-        : isZh
-          ? 'Binance / OKX / Bybit / Hyperliquid'
-          : 'Binance / OKX / Bybit / Hyperliquid',
+        : 'Binance / OKX / Bybit / Bitget',
       ready: exchangeReady,
       actionLabel: exchangeReady
         ? pick(language, '管理', 'Manage', 'Kelola')

@@ -143,7 +143,7 @@ dev-up:
 		bash -c 'cd web && exec npm run dev -- --host 0.0.0.0 --port $(DEV_FRONTEND_PORT) --strictPort' \
 		>> "$(DEV_FRONTEND_LOG)" 2>&1 & echo "$$!" > "$(DEV_FRONTEND_PID)"; \
 	echo "🚀 starting backend (:$(DEV_BACKEND_PORT))..."; \
-	setsid env NOFX_BACKEND_PORT=$(DEV_BACKEND_PORT) DB_PATH="$(CURDIR)/$(DEV_DB)" "$(CURDIR)/$(DEV_BIN)" \
+	setsid env API_SERVER_PORT=$(DEV_BACKEND_PORT) DB_PATH="$(CURDIR)/$(DEV_DB)" "$(CURDIR)/$(DEV_BIN)" \
 		>> "$(DEV_BACKEND_LOG)" 2>&1 & echo "$$!" > "$(DEV_BACKEND_PID)"; \
 	ok=0; \
 	for _ in $$(seq 1 40); do \

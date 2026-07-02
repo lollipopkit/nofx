@@ -60,7 +60,7 @@ export function BeginnerOnboardingPage() {
   const noticeText = useMemo(
     () =>
       pick(language, '此钱包仅用于支付模型调用费用,不会自动为你的交易所充值。私钥无法找回,且只应充入 Base USDC。', 'This wallet only pays for model calls. It does not fund your exchange automatically. The private key cannot be recovered, and you should only deposit Base USDC.', 'Dompet ini hanya membayar panggilan model. Tidak mengisi bursa Anda otomatis. Private key tidak bisa dipulihkan, dan Anda hanya boleh deposit Base USDC.'),
-    [isZh]
+    [language]
   )
 
   const copyText = async (value: string, label: string) => {

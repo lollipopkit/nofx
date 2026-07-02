@@ -664,7 +664,7 @@ const id = {
       'Trading AI bersifat eksperimental dan TIDAK dijamin menguntungkan. Futures kripto sangat volatil dan berisiko. NOFX dirancang untuk tujuan edukasi dan riset. Kami sangat menyarankan: mulai dengan jumlah kecil (10-50 USDT), jangan investasi melebihi yang sanggup Anda rugi, uji sebelum trading nyata.',
     faqSupportedExchanges: 'Bursa mana yang didukung?',
     faqSupportedExchangesAnswer:
-      'CEX (Tersentralisasi): Binance Futures, Bybit, OKX, Bitget. DEX (Terdesentralisasi): Hyperliquid, Aster DEX, Lighter. Setiap bursa memiliki fitur berbeda - Binance memiliki likuiditas terbesar, Hyperliquid sepenuhnya on-chain tanpa KYC.',
+      'CEX (Tersentralisasi): Binance Futures, Bybit, OKX, Bitget. DEX (Terdesentralisasi): Aster DEX, Lighter. Setiap bursa memiliki fitur berbeda - Binance memiliki likuiditas terbesar, Hyperliquid sepenuhnya on-chain tanpa KYC.',
     faqSupportedAIModels: 'Model AI mana yang didukung?',
     faqSupportedAIModelsAnswer:
       'NOFX mendukung 7+ model AI: DeepSeek (direkomendasikan untuk biaya/performa), Qwen, OpenAI (GPT), Claude, Gemini, Grok, dan Kimi. Anda juga dapat menggunakan endpoint API yang kompatibel dengan OpenAI.',

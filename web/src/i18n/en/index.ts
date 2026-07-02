@@ -701,7 +701,7 @@ const en = {
 
     faqSupportedExchanges: 'Which exchanges are supported?',
     faqSupportedExchangesAnswer:
-      'CEX (Centralized): Binance Futures, Bybit, OKX, Bitget. DEX (Decentralized): Hyperliquid, Aster DEX, Lighter. Each exchange has different features - Binance has the most liquidity, Hyperliquid is fully on-chain with no KYC required. Check the documentation for setup guides for each exchange.',
+      'CEX (Centralized): Binance Futures, Bybit, OKX, Bitget. DEX (Decentralized): Aster DEX, Lighter. Each exchange has different features - Binance has the most liquidity, Hyperliquid is fully on-chain with no KYC required. Check the documentation for setup guides for each exchange.',
 
     faqSupportedAIModels: 'Which AI models are supported?',
     faqSupportedAIModelsAnswer:

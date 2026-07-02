@@ -647,7 +647,7 @@ const zh = {
 
     faqSupportedExchanges: '支持哪些交易所？',
     faqSupportedExchangesAnswer:
-      'CEX（中心化）：币安合约、Bybit、OKX、Bitget。DEX（去中心化）：Hyperliquid、Aster DEX、Lighter。每个交易所有不同特点 - 币安流动性最好，Hyperliquid 完全链上无需 KYC。查看文档获取各交易所的设置指南。',
+      'CEX（中心化）：币安合约、Bybit、OKX、Bitget。DEX（去中心化）：Aster DEX、Lighter。每个交易所有不同特点 - 币安流动性最好，Hyperliquid 完全链上无需 KYC。查看文档获取各交易所的设置指南。',
 
     faqSupportedAIModels: '支持哪些 AI 模型？',
     faqSupportedAIModelsAnswer:

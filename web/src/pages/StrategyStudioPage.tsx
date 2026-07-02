@@ -1924,6 +1924,7 @@ export function StrategyStudioPage() {
                             .split(/[,\s]+/)
                             .map((s) => s.trim().toUpperCase())
                             .filter(Boolean)
+                            .slice(0, 10)
                           patchCoinSource({ source_type: 'static', static_coins: coins })
                         }}
                         placeholder="BTCUSDT, ETHUSDT"
