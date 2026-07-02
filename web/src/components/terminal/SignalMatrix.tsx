@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { pick } from '../../i18n/translations'
+import { useLanguage } from '../../contexts/LanguageContext'
 import type { SignalRankItem } from '../../lib/api/data'
 
 /**
@@ -59,6 +61,7 @@ interface SignalMatrixProps {
 }
 
 export function SignalMatrix({ items, max = 36, active, onSelect }: SignalMatrixProps) {
+  const { language } = useLanguage()
   const view = useMemo(() => {
     const raw = items ?? []
     const sorted = [...raw].sort((a, b) => a.rank - b.rank).slice(0, max)
@@ -89,7 +92,7 @@ export function SignalMatrix({ items, max = 36, active, onSelect }: SignalMatrix
     return (
       <div style={{ fontFamily: 'var(--tm-mono)' }}>
         <Head />
-        <div className="tm-sc">No signal data (claw402).</div>
+        <div className="tm-sc">{pick(language, '暂无信号数据。', 'No signal data.', 'Tidak ada data sinyal.')}</div>
       </div>
     )
   }
@@ -172,10 +175,11 @@ function fmtScore(n: number): string {
 }
 
 function Head() {
+  const { language } = useLanguage()
   return (
     <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-      <span className="tm-px" style={{ fontSize: 11 }}>Signal matrix</span>
-      <span className="tm-sc">Signal matrix · vergex</span>
+      <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '信号矩阵', 'Signal matrix', 'Matriks sinyal')}</span>
+      <span className="tm-sc">{pick(language, '信号矩阵 · 信号源', 'Signal matrix · vergex', 'Matriks sinyal · vergex')}</span>
     </div>
   )
 }

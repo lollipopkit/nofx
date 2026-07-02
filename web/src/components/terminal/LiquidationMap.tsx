@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { pick } from '../../i18n/translations'
 import useSWR from 'swr'
+import { useLanguage } from '../../contexts/LanguageContext'
 import { api } from '../../lib/api'
 import type { VergexHeatmapBin } from '../../lib/api/data'
 
@@ -47,6 +49,7 @@ interface LiquidationMapProps {
 }
 
 export function LiquidationMap({ symbol, marketType = 'hip3_perp', height = 460 }: LiquidationMapProps) {
+  const { language } = useLanguage()
   // Synthetic markets live under marketType "hip3_perp"; crypto majors under
   // "perp". We try the caller's guess first and fall back to the other so the
   // heatmap resolves for ANY symbol that has one.
@@ -140,7 +143,7 @@ export function LiquidationMap({ symbol, marketType = 'hip3_perp', height = 460 
   return (
     <div style={{ fontFamily: 'var(--tm-mono)' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 3 }}>
-        <span className="tm-px" style={{ fontSize: 11 }}>Cost / Liq map</span>
+        <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '成本 / 清算图', 'Cost / Liq map', 'Peta biaya / likuidasi')}</span>
         <span className="tm-sc">{view.dispSymbol}</span>
         <span className="tm-sc" style={{ marginLeft: 'auto', color: view.rows.length ? 'var(--tm-up)' : 'var(--tm-muted)' }}>
           {view.rows.length ? '● live' : isLoading ? '○ sync' : '○ —'}

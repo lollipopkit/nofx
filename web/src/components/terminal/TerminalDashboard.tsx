@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import { pick } from '../../i18n/translations'
 import { createPortal } from 'react-dom'
 import type { CSSProperties } from 'react'
 import useSWR from 'swr'
 import { api } from '../../lib/api'
+import { useLanguage } from '../../contexts/LanguageContext'
 import type {
   SystemStatus,
   AccountInfo,
@@ -93,6 +95,7 @@ export function TerminalDashboard({
   positions,
   decisions,
 }: TerminalDashboardProps) {
+  const { language } = useLanguage()
   const traderId = selectedTrader?.trader_id || selectedTraderId
   useTick(1000)
   const clock = new Date().toLocaleTimeString('en-GB', { hour12: false })
@@ -336,8 +339,8 @@ export function TerminalDashboard({
         {/* orchestration topology — second row, full width (the agent workflow) */}
         <div style={sc}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 4 }}>
-            <span className="tm-px" style={{ fontSize: 12 }}>Orchestration topology</span>
-            <span className="tm-sc">Orchestration topology · net inflow → signal → execute → hold</span>
+            <span className="tm-px" style={{ fontSize: 12 }}>{pick(language, '编排拓扑', 'Orchestration topology', 'Topologi orkestrasi')}</span>
+            <span className="tm-sc">{pick(language, '编排拓扑 · 净流入 → 信号 → 执行 → 持有', 'Orchestration topology · net inflow → signal → execute → hold', 'Topologi orkestrasi · aliran masuk → sinyal → eksekusi → tahan')}</span>
           </div>
           <OrchestrationTopology
             layers={[
@@ -403,7 +406,7 @@ export function TerminalDashboard({
           <div style={sc}>
             {/* live open positions (the book right now) */}
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-              <span className="tm-px" style={{ fontSize: 11 }}>Positions</span>
+              <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '持仓', 'Positions', 'Posisi')}</span>
               <span className="tm-sc">Current positions · live</span>
               <span className="tm-sc" style={{ marginLeft: 'auto' }}>{positions?.length ?? 0} open</span>
             </div>
@@ -434,12 +437,12 @@ export function TerminalDashboard({
                   })}
                 </tbody>
               </table>
-            ) : <div className="tm-sc" style={{ padding: '8px 0' }}>No open positions.</div>}
+            ) : <div className="tm-sc" style={{ padding: '8px 0' }}>{pick(language, '暂无持仓。', 'No open positions.', 'Tidak ada posisi terbuka.')}</div>}
 
             <div className="tm-rule" style={{ margin: '12px 0 10px' }} />
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-              <span className="tm-px" style={{ fontSize: 11 }}>Recent trades</span>
+              <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '近期成交', 'Recent trades', 'Transaksi terbaru')}</span>
               <span className="tm-sc">Recent closes · symbol/side/time/pnl</span>
             </div>
             {recentTrades.length > 0 ? (
@@ -458,7 +461,7 @@ export function TerminalDashboard({
                   })}
                 </tbody>
               </table>
-            ) : <div className="tm-sc" style={{ padding: '8px 0' }}>No closed trades yet.</div>}
+            ) : <div className="tm-sc" style={{ padding: '8px 0' }}>{pick(language, '暂无已平仓交易。', 'No closed trades yet.', 'Belum ada transaksi tertutup.')}</div>}
           </div>
         </div>
         <div className="tm-rule" />
@@ -467,15 +470,15 @@ export function TerminalDashboard({
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.5fr) minmax(0,1fr)' }}>
           <div style={{ ...sc, borderRight: cellBorder }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 8 }}>
-              <span className="tm-px" style={{ fontSize: 12 }}>Market net inflow</span>
-              <span className="tm-sc">Market net inflow · {flow?.data?.window || '1h'} · Vergex</span>
+              <span className="tm-px" style={{ fontSize: 12 }}>{pick(language, '市场净流入', 'Market net inflow', 'Aliran masuk bersih pasar')}</span>
+              <span className="tm-sc">{pick(language, '市场净流入', 'Market net inflow', 'Aliran masuk bersih pasar')} · {flow?.data?.window || '1h'} · Vergex</span>
               <span className="tm-sc" style={{ marginLeft: 'auto' }}>{flowItems.length} markets</span>
             </div>
             <FlowMarkets items={flowItems} window={flow?.data?.window} />
           </div>
           <div style={sc}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-              <span className="tm-px" style={{ fontSize: 11 }}>By symbol</span>
+              <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '按标的', 'By symbol', 'Per simbol')}</span>
               <span className="tm-sc">By-symbol history · trades/win/pnl</span>
             </div>
             {symbolStats.length > 0 ? symbolStats.map((s) => (
@@ -489,7 +492,7 @@ export function TerminalDashboard({
                   <div style={{ height: 4, width: `${(s.total_trades / maxSymTrades) * 100}%`, background: s.total_pnl >= 0 ? 'var(--tm-up)' : 'var(--tm-dn)' }} />
                 </div>
               </div>
-            )) : <div className="tm-sc">No symbol history.</div>}
+            )) : <div className="tm-sc">{pick(language, '暂无标的历史。', 'No symbol history.', 'Tidak ada riwayat simbol.')}</div>}
           </div>
         </div>
       </div>

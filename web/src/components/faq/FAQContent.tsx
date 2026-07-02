@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { t, type Language } from '../../i18n/translations'
+import { t, type Language, pick } from '../../i18n/translations'
 import type { FAQCategory } from '../../data/faqData'
 // RoadmapWidget: removed dynamic embedding; only show external links on demand
 
@@ -85,14 +85,14 @@ export function FAQContent({
                   {item.id === 'github-projects-tasks' ? (
                     <div className="space-y-3">
                       <div className="text-base">
-                        {language === 'zh' ? 'Links:' : 'Links:'}{' '}
+                        {pick(language, '链接:', 'Links:', 'Tautan:')}{' '}
                         <a
                           href="https://github.com/orgs/NoFxAiOS/projects/3"
                           target="_blank"
                           rel="noreferrer"
                           style={{ color: '#E0483B' }}
                         >
-                          {language === 'zh' ? 'Roadmap' : 'Roadmap'}
+                          {pick(language, '路线图', 'Roadmap', 'Peta jalan')}
                         </a>
                         {'  |  '}
                         <a
@@ -101,7 +101,7 @@ export function FAQContent({
                           rel="noreferrer"
                           style={{ color: '#E0483B' }}
                         >
-                          {language === 'zh' ? 'Task Dashboard' : 'Task Dashboard'}
+                          {pick(language, '任务面板', 'Task Dashboard', 'Dasbor tugas')}
                         </a>
                       </div>
                       <ol className="list-decimal pl-5 space-y-1 text-base">
@@ -279,7 +279,7 @@ export function FAQContent({
                   ) : item.id === 'contribute-pr-guidelines' ? (
                     <div className="space-y-3">
                       <div className="text-base">
-                        {language === 'zh' ? 'References:' : 'References:'}{' '}
+                        {pick(language, '参考:', 'References:', 'Referensi:')}{' '}
                         <a
                           href="https://github.com/NoFxAiOS/nofx/blob/dev/CONTRIBUTING.md"
                           target="_blank"

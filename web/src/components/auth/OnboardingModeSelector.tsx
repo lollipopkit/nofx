@@ -1,4 +1,5 @@
 import type { UserMode } from '../../lib/onboarding'
+import { pick } from '../../i18n/translations'
 
 interface OnboardingModeSelectorProps {
   language: string
@@ -11,7 +12,6 @@ export function OnboardingModeSelector({
   mode,
   onChange,
 }: OnboardingModeSelectorProps) {
-  const isZh = language === 'zh'
 
   const options: Array<{
     id: UserMode
@@ -21,25 +21,21 @@ export function OnboardingModeSelector({
   }> = [
     {
       id: 'beginner',
-      title: isZh ? 'Beginner Mode' : 'Beginner Mode',
-      badge: isZh ? 'Recommended' : 'Recommended',
-      description: isZh
-        ? 'Generate a Base wallet automatically and start with Claw402 + GLM by default.'
-        : 'Generate a Base wallet automatically and start with Claw402 + GLM by default.',
+      title: pick(language, '新手模式', 'Beginner Mode', 'Mode Pemula'),
+      badge: pick(language, '推荐', 'Recommended', 'Direkomendasikan'),
+      description: pick(language, '自动生成一个 Base 钱包,默认使用 Claw402 + GLM 开始。', 'Generate a Base wallet automatically and start with Claw402 + GLM by default.', 'Buat dompet Base otomatis dan mulai dengan Claw402 + GLM secara default.'),
     },
     {
       id: 'advanced',
-      title: isZh ? 'Advanced Mode' : 'Advanced Mode',
-      description: isZh
-        ? 'Keep the full manual flow and configure models, wallets, and exchanges yourself.'
-        : 'Keep the full manual flow and configure models, wallets, and exchanges yourself.',
+      title: pick(language, '高级模式', 'Advanced Mode', 'Mode Lanjutan'),
+      description: pick(language, '保留完整的手动流程,自行配置模型、钱包和交易所。', 'Keep the full manual flow and configure models, wallets, and exchanges yourself.', 'Pertahankan alur manual penuh dan konfigurasi model, dompet, serta bursa sendiri.'),
     },
   ]
 
   return (
     <div className="space-y-2">
       <div className="text-xs font-medium text-nofx-text-muted">
-        {isZh ? 'Experience' : 'Experience'}
+        {pick(language, '体验', 'Experience', 'Coba')}
       </div>
       <div className="grid grid-cols-1 gap-2">
         {options.map((option) => {

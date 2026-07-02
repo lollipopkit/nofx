@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { api } from '../../lib/api'
 import { useLanguage } from '../../contexts/LanguageContext'
-import { t, type Language } from '../../i18n/translations'
+import { t, type Language, pick } from '../../i18n/translations'
 import { MetricTooltip } from '../common/MetricTooltip'
 import { formatPrice, formatQuantity } from '../../utils/format'
 import { NofxSelect } from '../ui/select'
@@ -838,7 +838,7 @@ export function PositionHistory({ traderId }: PositionHistoryProps) {
             {/* Page size selector */}
             <div className="flex items-center gap-2">
               <span className="text-xs" style={{ color: '#8A8478' }}>
-                {language === 'zh' ? 'Per page' : 'Per page'}:
+                {pick(language, '每页', 'Per page', 'Per halaman')}:
               </span>
               <NofxSelect
                 value={pageSize}

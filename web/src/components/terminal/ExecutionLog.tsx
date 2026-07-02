@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { pick } from '../../i18n/translations'
+import { useLanguage } from '../../contexts/LanguageContext'
 import type { DecisionRecord } from '../../types'
 
 /**
@@ -102,6 +104,7 @@ interface ExecutionLogProps {
 }
 
 export function ExecutionLog({ decisions, height = 440 }: ExecutionLogProps) {
+  const { language } = useLanguage()
   // Newest cycle first.
   const cycles = useMemo(() => {
     const list = decisions ?? []
@@ -112,7 +115,7 @@ export function ExecutionLog({ decisions, height = 440 }: ExecutionLogProps) {
     <div style={{ fontFamily: 'var(--tm-mono)' }}>
       {/* header */}
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 2 }}>
-        <span className="tm-px" style={{ fontSize: 11 }}>Execution log</span>
+        <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '执行日志', 'Execution log', 'Log eksekusi')}</span>
         <span
           className="tm-sc"
           style={{ marginLeft: 'auto', color: cycles.length ? 'var(--tm-up)' : 'var(--tm-muted)' }}
@@ -121,7 +124,7 @@ export function ExecutionLog({ decisions, height = 440 }: ExecutionLogProps) {
         </span>
       </div>
       <div className="tm-sc" style={{ fontSize: 9, marginBottom: 5 }}>
-        Execution log · AI decisions & fills per cycle
+        {pick(language, '执行日志 · 每轮 AI 决策与成交', 'Execution log · AI decisions & fills per cycle', 'Log eksekusi · keputusan & eksekusi AI tiap siklus')}
       </div>
 
       {/* legend */}
@@ -137,7 +140,7 @@ export function ExecutionLog({ decisions, height = 440 }: ExecutionLogProps) {
       <div className="tm-hair" style={{ marginBottom: 0 }} />
 
       {!cycles.length ? (
-        <div className="tm-sc" style={{ padding: '16px 0' }}>No execution events yet.</div>
+        <div className="tm-sc" style={{ padding: '16px 0' }}>{pick(language, '暂无执行事件。', 'No execution events yet.', 'Belum ada event eksekusi.')}</div>
       ) : (
         <div
           style={{

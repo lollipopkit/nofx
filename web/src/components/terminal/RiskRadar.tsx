@@ -1,4 +1,6 @@
 import { useMemo } from 'react'
+import { pick } from '../../i18n/translations'
+import { useLanguage } from '../../contexts/LanguageContext'
 import type { Position } from '../../types'
 
 /**
@@ -46,6 +48,7 @@ interface RiskRadarProps {
 }
 
 export function RiskRadar({ positions, account, config, fullStats }: RiskRadarProps) {
+  const { language } = useLanguage()
   const pos = positions ?? []
 
   const m = useMemo(() => {
@@ -125,7 +128,7 @@ export function RiskRadar({ positions, account, config, fullStats }: RiskRadarPr
 
   const hasData = pos.length > 0 || account != null
   if (!hasData) {
-    return <div className="tm-sc" style={{ padding: '16px 0' }}>No live risk data.</div>
+    return <div className="tm-sc" style={{ padding: '16px 0' }}>{pick(language, '暂无实时风险数据。', 'No live risk data.', 'Tidak ada data risiko langsung.')}</div>
   }
 
   // ── one-glance verdicts ──────────────────────────────────────────────
@@ -186,7 +189,7 @@ export function RiskRadar({ positions, account, config, fullStats }: RiskRadarPr
     <div style={{ fontFamily: 'var(--tm-mono)' }}>
       {/* header */}
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 1 }}>
-        <span className="tm-px" style={{ fontSize: 11 }}>Risk radar</span>
+        <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '风险雷达', 'Risk radar', 'Radar risiko')}</span>
         <span
           className="tm-sc"
           style={{ marginLeft: 'auto', color: m.totalNotional > 0 ? 'var(--tm-up)' : 'var(--tm-muted)' }}

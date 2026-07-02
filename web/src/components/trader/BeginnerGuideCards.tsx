@@ -1,4 +1,5 @@
 import { Brain, Landmark, Rocket, Sparkles } from 'lucide-react'
+import { pick } from '../../i18n/translations'
 
 interface BeginnerGuideCardsProps {
   language: string
@@ -32,98 +33,62 @@ export function BeginnerGuideCards({
     {
       key: 'model',
       icon: Brain,
-      title: isZh ? '1. Configure AI' : '1. Configure AI',
-      desc: isZh
-        ? 'Add an AI model with your own API key (DeepSeek, OpenAI, or any OpenAI-compatible endpoint).'
-        : 'Add an AI model with your own API key (DeepSeek, OpenAI, or any OpenAI-compatible endpoint).',
+      title: pick(language, '1. 配置 AI', '1. Configure AI', '1. Konfigurasi AI'),
+      desc: pick(language, '用你自己的 API Key 添加 AI 模型(DeepSeek、OpenAI,或任意 OpenAI 兼容端点)。', 'Add an AI model with your own API key (DeepSeek, OpenAI, or any OpenAI-compatible endpoint).', 'Tambahkan model AI dengan API key Anda sendiri (DeepSeek, OpenAI, atau endpoint kompatibel OpenAI mana pun).'),
       meta: claw402Ready
-        ? isZh
-          ? 'Model ready'
-          : 'Model ready'
-        : isZh
-          ? 'Bring your own API key'
-          : 'Bring your own API key',
+        ? pick(language, '模型已就绪', 'Model ready', 'Model siap')
+        : pick(language, '使用你自己的 API Key', 'Bring your own API key', 'Gunakan API key Anda sendiri'),
       ready: claw402Ready,
       actionLabel: claw402Ready
-        ? isZh
-          ? 'Configured'
-          : 'Configured'
-        : isZh
-          ? 'One-click setup'
-          : 'One-click setup',
+        ? pick(language, '已配置', 'Configured', 'Terkonfigurasi')
+        : pick(language, '一键配置', 'One-click setup', 'Pengaturan sekali klik'),
       onAction: onQuickSetupClaw402,
       disabled: claw402Ready,
     },
     {
       key: 'exchange',
       icon: Landmark,
-      title: isZh ? '2. Add Exchange' : '2. Add Exchange',
-      desc: isZh
-        ? 'Connect an exchange so the AI can actually place trades.'
-        : 'Connect an exchange so the AI can actually place trades.',
+      title: pick(language, '2. 添加交易所', '2. Add Exchange', '2. Tambah Bursa'),
+      desc: pick(language, '连接交易所,让 AI 能够真正下单。', 'Connect an exchange so the AI can actually place trades.', 'Hubungkan bursa agar AI benar-benar bisa bertransaksi.'),
       meta: exchangeReady
-        ? isZh
-          ? 'Ready'
-          : 'Ready'
+        ? pick(language, '已就绪', 'Ready', 'Siap')
         : isZh
           ? 'Binance / OKX / Bybit / Hyperliquid'
           : 'Binance / OKX / Bybit / Hyperliquid',
       ready: exchangeReady,
       actionLabel: exchangeReady
-        ? isZh
-          ? 'Manage'
-          : 'Manage'
-        : isZh
-          ? 'Configure'
-          : 'Configure',
+        ? pick(language, '管理', 'Manage', 'Kelola')
+        : pick(language, '配置', 'Configure', 'Konfigurasi'),
       onAction: onOpenExchange,
       disabled: false,
     },
     {
       key: 'strategy',
       icon: Sparkles,
-      title: isZh ? '3. Pick Strategy' : '3. Pick Strategy',
-      desc: isZh
-        ? 'You can start with a default strategy and fine-tune later.'
-        : 'You can start with a default strategy and fine-tune later.',
+      title: pick(language, '3. 选择策略', '3. Pick Strategy', '3. Pilih Strategi'),
+      desc: pick(language, '可以先用默认策略,之后再微调。', 'You can start with a default strategy and fine-tune later.', 'Anda bisa mulai dengan strategi default dan menyempurnakannya nanti.'),
       meta: strategyReady
-        ? isZh
-          ? 'Strategy ready'
-          : 'Strategy ready'
-        : isZh
-          ? 'Optional, but worth a quick look'
-          : 'Optional, but worth a quick look',
+        ? pick(language, '策略已就绪', 'Strategy ready', 'Strategi siap')
+        : pick(language, '可选,但建议看一眼', 'Optional, but worth a quick look', 'Opsional, tapi layak dilihat sekilas'),
       ready: strategyReady,
-      actionLabel: isZh ? 'Open strategy' : 'Open strategy',
+      actionLabel: pick(language, '打开策略', 'Open strategy', 'Buka strategi'),
       onAction: onOpenStrategy,
       disabled: false,
     },
     {
       key: 'trader',
       icon: Rocket,
-      title: isZh ? '4. Create Trader' : '4. Create Trader',
-      desc: isZh
-        ? 'Last step: bind your model and exchange, then start running.'
-        : 'Last step: bind your model and exchange, then start running.',
+      title: pick(language, '4. 创建 Trader', '4. Create Trader', '4. Buat Trader'),
+      desc: pick(language, '最后一步:绑定模型和交易所,然后开始运行。', 'Last step: bind your model and exchange, then start running.', 'Langkah terakhir: hubungkan model dan bursa Anda, lalu mulai jalankan.'),
       meta: traderReady
-        ? isZh
-          ? 'Trader created, you can add more'
-          : 'Trader created, you can add more'
+        ? pick(language, 'Trader 已创建,可继续添加', 'Trader created, you can add more', 'Trader dibuat, Anda bisa menambah lagi')
         : canCreateTrader
-          ? isZh
-            ? 'Ready to create'
-            : 'Ready to create'
-        : isZh
-          ? 'Finish the first three steps first'
-          : 'Finish the first three steps first',
+          ? pick(language, '可以创建', 'Ready to create', 'Siap dibuat')
+        : pick(language, '请先完成前三步', 'Finish the first three steps first', 'Selesaikan tiga langkah pertama dulu'),
       ready: traderReady,
       actionLabel: traderReady
-        ? isZh
-          ? 'Create another'
-          : 'Create another'
-        : isZh
-          ? 'Create now'
-          : 'Create now',
+        ? pick(language, '再创建一个', 'Create another', 'Buat lagi')
+        : pick(language, '立即创建', 'Create now', 'Buat sekarang'),
       onAction: onCreateTrader,
       disabled: !canCreateTrader,
     },
@@ -134,16 +99,14 @@ export function BeginnerGuideCards({
       <div className="flex items-center justify-between gap-4">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-nofx-gold/80">
-            {isZh ? 'Quickstart' : 'Quickstart'}
+            {pick(language, '快速开始', 'Quickstart', 'Mulai Cepat')}
           </div>
           <h2 className="mt-1 text-xl font-bold text-nofx-text">
-            {isZh
-              ? 'Follow these 4 steps to get started fast'
-              : 'Follow these 4 steps to get started fast'}
+            {pick(language, '按这 4 步快速上手', 'Follow these 4 steps to get started fast', 'Ikuti 4 langkah ini untuk mulai cepat')}
           </h2>
         </div>
         {/* <div className="rounded-full border border-nofx-gold/20 bg-nofx-bg-deeper px-3 py-1 text-xs text-nofx-text-muted">
-          {isZh ? 'Hidden in advanced mode' : 'Hidden in advanced mode'}
+          {pick(language, '高级模式下隐藏', 'Hidden in advanced mode', 'Disembunyikan di mode lanjutan')}
         </div> */}
       </div>
 
@@ -167,12 +130,8 @@ export function BeginnerGuideCards({
                   }`}
                 >
                   {card.ready
-                    ? isZh
-                      ? 'Ready'
-                      : 'Ready'
-                    : isZh
-                      ? 'Pending'
-                      : 'Pending'}
+                    ? pick(language, '已就绪', 'Ready', 'Siap')
+                    : pick(language, '待完成', 'Pending', 'Menunggu')}
                 </span>
               </div>
 

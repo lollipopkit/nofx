@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { pick } from '../i18n/translations'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowDownRight,
@@ -220,7 +221,9 @@ function defaultCoinSource(
     10
   )
   return {
-    source_type: 'vergex_signal',
+    // Respect an explicit source_type (e.g. 'static' for CEX users); only
+    // default to the vergex signal board when none was set.
+    source_type: source?.source_type || 'vergex_signal',
     static_coins: staticCoins,
     excluded_coins: [],
     use_ai500: false,
@@ -1067,6 +1070,7 @@ export function StrategyStudioPage() {
   const indicators = aiConfig?.indicators
   const risk = aiConfig?.risk_control
   const selectedSymbols = coinSource?.static_coins || []
+  const sourceType = coinSource?.source_type || 'vergex_signal'
   const scope = 'all' as Scope
   const activeProfile = profileFromRisk(risk)
 
@@ -1881,6 +1885,60 @@ export function StrategyStudioPage() {
               </section>
 
               <section className="rounded-lg border border-[rgba(26,24,19,0.14)] bg-nofx-bg-lighter p-4">
+                <div className="mb-4 rounded-lg border border-[rgba(26,24,19,0.14)] bg-nofx-bg-deeper p-3">
+                  <div className="text-xs font-semibold text-nofx-text">
+                    {pick(language, '候选币来源', 'Coin source', 'Sumber koin')}
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => patchCoinSource({ source_type: 'vergex_signal' })}
+                      className={`rounded-lg border px-3 py-1.5 text-xs transition ${
+                        sourceType === 'vergex_signal'
+                          ? 'border-nofx-gold bg-nofx-gold/10 text-nofx-gold'
+                          : 'border-[rgba(26,24,19,0.14)] text-nofx-text-muted hover:text-nofx-text'
+                      }`}
+                    >
+                      {pick(language, '信号榜 (Vergex)', 'Signal Board (Vergex)', 'Papan Sinyal (Vergex)')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => patchCoinSource({ source_type: 'static' })}
+                      className={`rounded-lg border px-3 py-1.5 text-xs transition ${
+                        sourceType === 'static'
+                          ? 'border-nofx-gold bg-nofx-gold/10 text-nofx-gold'
+                          : 'border-[rgba(26,24,19,0.14)] text-nofx-text-muted hover:text-nofx-text'
+                      }`}
+                    >
+                      {pick(language, '自选币种', 'Static symbols', 'Simbol statis')}
+                    </button>
+                  </div>
+                  {sourceType === 'static' ? (
+                    <div className="mt-3">
+                      <input
+                        key={selectedStrategy?.id || 'new'}
+                        type="text"
+                        defaultValue={selectedSymbols.join(', ')}
+                        onChange={(e) => {
+                          const coins = e.target.value
+                            .split(/[,\s]+/)
+                            .map((s) => s.trim().toUpperCase())
+                            .filter(Boolean)
+                          patchCoinSource({ source_type: 'static', static_coins: coins })
+                        }}
+                        placeholder="BTCUSDT, ETHUSDT"
+                        className="w-full rounded-lg border border-[rgba(26,24,19,0.14)] bg-nofx-bg-lighter px-3 py-2 text-sm text-nofx-text placeholder-nofx-text-muted focus:outline-none focus:border-nofx-gold/60"
+                      />
+                      <div className="mt-1 text-xs text-nofx-text-muted">
+                        {pick(language, '逗号分隔;这些就是 AI 每轮的候选币。CEX(OKX / Binance 等)请用此项。', 'Comma-separated. These are the AI candidate coins each cycle. Use this for CEX (OKX / Binance).', 'Dipisahkan koma. Ini koin kandidat AI tiap siklus. Gunakan untuk CEX (OKX / Binance).')}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-2 text-xs text-nofx-text-muted">
+                      {pick(language, '信号榜依赖 Claw402 钱包 + Hyperliquid;OKX 等 CEX 请选“自选币种”。', 'Signal Board needs a Claw402 wallet + Hyperliquid; for CEX like OKX choose Static symbols.', 'Papan Sinyal butuh dompet Claw402 + Hyperliquid; untuk CEX seperti OKX pilih Simbol statis.')}
+                    </div>
+                  )}
+                </div>
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2 text-sm font-semibold text-nofx-text">

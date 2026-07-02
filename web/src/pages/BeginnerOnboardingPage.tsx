@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { pick } from '../i18n/translations'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Copy, RefreshCw, Shield, Wallet, X } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
@@ -37,9 +38,7 @@ export function BeginnerOnboardingPage() {
       setError(
         err instanceof Error
           ? err.message
-          : isZh
-            ? 'Failed to prepare beginner wallet'
-            : 'Failed to prepare beginner wallet'
+          : pick(language, '准备新手钱包失败', 'Failed to prepare beginner wallet', 'Gagal menyiapkan dompet pemula')
       )
     } finally {
       if (showLoading) {
@@ -60,9 +59,7 @@ export function BeginnerOnboardingPage() {
 
   const noticeText = useMemo(
     () =>
-      isZh
-        ? 'This wallet only pays for model calls. It does not fund your exchange automatically. The private key cannot be recovered, and you should only deposit Base USDC.'
-        : 'This wallet only pays for model calls. It does not fund your exchange automatically. The private key cannot be recovered, and you should only deposit Base USDC.',
+      pick(language, '此钱包仅用于支付模型调用费用,不会自动为你的交易所充值。私钥无法找回,且只应充入 Base USDC。', 'This wallet only pays for model calls. It does not fund your exchange automatically. The private key cannot be recovered, and you should only deposit Base USDC.', 'Dompet ini hanya membayar panggilan model. Tidak mengisi bursa Anda otomatis. Private key tidak bisa dipulihkan, dan Anda hanya boleh deposit Base USDC.'),
     [isZh]
   )
 
@@ -71,7 +68,7 @@ export function BeginnerOnboardingPage() {
       await navigator.clipboard.writeText(value)
       toast.success(isZh ? `${label} copied` : `${label} copied`)
     } catch {
-      toast.error(isZh ? 'Copy failed' : 'Copy failed')
+      toast.error(pick(language, '复制失败', 'Copy failed', 'Gagal menyalin'))
     }
   }
 
@@ -88,7 +85,7 @@ export function BeginnerOnboardingPage() {
           type="button"
           onClick={handleContinue}
           className="absolute right-6 top-6 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(26,24,19,0.14)] bg-nofx-text/5 text-nofx-text-muted transition hover:border-[rgba(26,24,19,0.24)] hover:bg-nofx-text/10 hover:text-nofx-text"
-          aria-label={isZh ? 'Skip' : 'Skip'}
+          aria-label={pick(language, '跳过', 'Skip', 'Lewati')}
         >
           <X className="h-5 w-5" />
         </button>
@@ -106,7 +103,7 @@ export function BeginnerOnboardingPage() {
                       : 'text-[10px] tracking-[0.2em]'
                   }`}
                 >
-                  {isZh ? 'Beginner Guard' : 'Beginner Guard'}
+                  {pick(language, '新手保护', 'Beginner Guard', 'Pelindung Pemula')}
                 </div>
                 <h1
                   className={`mt-2 font-bold leading-[1.04] text-nofx-text ${
@@ -115,7 +112,7 @@ export function BeginnerOnboardingPage() {
                       : 'max-w-[720px] text-[27px] tracking-[-0.03em] sm:text-[35px] xl:text-[42px]'
                   }`}
                 >
-                  {isZh ? 'Your wallet is ready' : 'Your wallet is ready'}
+                  {pick(language, '钱包已就绪', 'Your wallet is ready', 'Dompet Anda siap')}
                 </h1>
               </div>
             </div>
@@ -128,16 +125,14 @@ export function BeginnerOnboardingPage() {
               }`}
             >
               Claw402 + DeepSeek <span className="mx-2 text-nofx-text-muted">·</span>
-              {isZh ? 'Pay per call' : 'Pay per call'}
+              {pick(language, '按次付费', 'Pay per call', 'Bayar per panggilan')}
             </div>
           </div>
 
           <div className="overflow-hidden rounded-[32px] border border-[rgba(26,24,19,0.14)] bg-nofx-bg-lighter shadow-lg backdrop-blur-2xl">
             {loading ? (
               <div className="flex min-h-[390px] items-center justify-center px-6 text-sm text-nofx-text-muted">
-                {isZh
-                  ? 'Preparing your Base wallet...'
-                  : 'Preparing your Base wallet...'}
+                {pick(language, '正在准备你的 Base 钱包...', 'Preparing your Base wallet...', 'Menyiapkan dompet Base Anda...')}
               </div>
             ) : data ? (
               <div className="grid lg:grid-cols-[0.82fr_1.18fr]">
@@ -148,9 +143,7 @@ export function BeginnerOnboardingPage() {
                     </div>
 
                     <div className="mt-4 text-[15px] font-medium text-nofx-text">
-                      {isZh
-                        ? 'Deposit address (Base USDC)'
-                        : 'Deposit address (Base USDC)'}
+                      {pick(language, '充值地址(Base USDC)', 'Deposit address (Base USDC)', 'Alamat deposit (Base USDC)')}
                     </div>
 
                     <div className="mt-4 flex items-center justify-between gap-3 rounded-[24px] border border-nofx-success/20 bg-nofx-success/10 px-5 py-3.5">
@@ -167,7 +160,7 @@ export function BeginnerOnboardingPage() {
                         onClick={() => void loadOnboarding(false)}
                         disabled={refreshingBalance}
                         className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-nofx-success/20 bg-nofx-bg-deeper text-nofx-success transition hover:bg-nofx-success/10 disabled:cursor-not-allowed disabled:opacity-60"
-                        aria-label={isZh ? 'Refresh balance' : 'Refresh balance'}
+                        aria-label={pick(language, '刷新余额', 'Refresh balance', 'Segarkan saldo')}
                       >
                         <RefreshCw
                           className={`h-4 w-4 ${refreshingBalance ? 'animate-spin' : ''}`}
@@ -176,9 +169,7 @@ export function BeginnerOnboardingPage() {
                     </div>
 
                     <div className="mt-4 text-sm text-nofx-text-muted">
-                      {isZh
-                        ? '$5-$10 usually lasts a long time'
-                        : '$5-$10 usually lasts a long time'}
+                      {pick(language, '$5-$10 通常能用很久', '$5-$10 usually lasts a long time', 'Biasanya $5-$10 bertahan lama')}
                     </div>
                   </div>
                 </section>
@@ -188,7 +179,7 @@ export function BeginnerOnboardingPage() {
                     <div>
                       <div className="mb-3 flex items-center gap-2 text-sm font-medium text-nofx-gold">
                         <Wallet className="h-4 w-4" />
-                        <span>{isZh ? 'Wallet address' : 'Wallet address'}</span>
+                        <span>{pick(language, '钱包地址', 'Wallet address', 'Alamat dompet')}</span>
                       </div>
                       <div className="flex items-stretch gap-3">
                         <div className="min-w-0 flex-1 rounded-2xl border border-[rgba(26,24,19,0.14)] bg-nofx-bg-deeper px-5 py-3 font-mono text-[14px] text-nofx-text">
@@ -197,10 +188,10 @@ export function BeginnerOnboardingPage() {
                         <button
                           type="button"
                           onClick={() =>
-                            copyText(data.address, isZh ? 'Address' : 'Address')
+                            copyText(data.address, pick(language, '地址', 'Address', 'Alamat'))
                           }
                           className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[rgba(26,24,19,0.14)] bg-nofx-text/5 text-nofx-text transition hover:border-[rgba(26,24,19,0.24)] hover:bg-nofx-text/10 hover:text-nofx-text"
-                          aria-label={isZh ? 'Copy address' : 'Copy address'}
+                          aria-label={pick(language, '复制地址', 'Copy address', 'Salin alamat')}
                         >
                           <Copy className="h-5 w-5" />
                         </button>
@@ -211,9 +202,7 @@ export function BeginnerOnboardingPage() {
                       <div className="mb-3 flex items-center gap-2 text-sm font-medium text-nofx-gold">
                         <Shield className="h-4 w-4" />
                         <span>
-                          {isZh
-                            ? 'Private key, back it up now'
-                            : 'Private key, back it up now'}
+                          {pick(language, '私钥,请立即备份', 'Private key, back it up now', 'Private key, cadangkan sekarang')}
                         </span>
                       </div>
                       <div className="flex items-stretch gap-3">
@@ -228,11 +217,11 @@ export function BeginnerOnboardingPage() {
                             onClick={() =>
                               copyText(
                                 data.private_key,
-                                isZh ? 'Private key' : 'Private key'
+                                pick(language, '私钥', 'Private key', 'Private key')
                               )
                             }
                             className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-nofx-gold/20 bg-nofx-gold/10 text-nofx-gold transition hover:bg-nofx-gold/15"
-                            aria-label={isZh ? 'Copy private key' : 'Copy private key'}
+                            aria-label={pick(language, '复制私钥', 'Copy private key', 'Salin private key')}
                           >
                             <Copy className="h-5 w-5" />
                           </button>
@@ -271,7 +260,7 @@ export function BeginnerOnboardingPage() {
                       }`}
                     >
                       <span>
-                        {isZh ? 'Go to Traders' : 'Go to Traders'}
+                        {pick(language, '前往 Traders', 'Go to Traders', 'Ke Traders')}
                       </span>
                       <ArrowRight className="h-5 w-5" />
                     </button>
