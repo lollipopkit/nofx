@@ -12,6 +12,7 @@ import (
 	"io"
 	"net/http"
 	"nofx/logger"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -228,8 +229,14 @@ func (t *OKXTrader) doRequest(method, path string, body interface{}) ([]byte, er
 	req.Header.Set("OK-ACCESS-TIMESTAMP", timestamp)
 	req.Header.Set("OK-ACCESS-PASSPHRASE", t.passphrase)
 	req.Header.Set("Content-Type", "application/json")
-	// Set request header
-	req.Header.Set("x-simulated-trading", "0")
+	// Set request header. OKX demo-trading API keys require the
+	// x-simulated-trading: 1 header (error 50101 otherwise); production keys
+	// require 0. Deployment-wide switch via OKX_SIMULATED_TRADING=1.
+	if os.Getenv("OKX_SIMULATED_TRADING") == "1" {
+		req.Header.Set("x-simulated-trading", "1")
+	} else {
+		req.Header.Set("x-simulated-trading", "0")
+	}
 
 	resp, err := t.httpClient.Do(req)
 	if err != nil {
