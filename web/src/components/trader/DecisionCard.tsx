@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { DecisionRecord, DecisionAction } from '../../types'
-import { t, type Language } from '../../i18n/translations'
+import { t, type Language, pick } from '../../i18n/translations'
 
 interface DecisionCardProps {
   decision: DecisionRecord
@@ -64,7 +64,7 @@ function ActionCard({ action, language, onSymbolClick }: { action: DecisionActio
             className="font-mono font-bold text-lg cursor-pointer transition-all duration-200 hover:scale-110"
             style={{ color: '#1A1813' }}
             onClick={() => onSymbolClick?.(action.symbol)}
-            title="Click to view chart"
+            title={pick(language, '点击查看图表', 'Click to view chart', 'Klik untuk lihat grafik')}
           >
             {action.symbol.replace('USDT', '')}
           </span>
@@ -314,7 +314,7 @@ export function DecisionCard({ decision, language, onSymbolClick }: DecisionCard
                   }}
                   className="text-xs px-2.5 py-1 rounded hover:opacity-80 transition-opacity flex items-center gap-1"
                   style={{ background: 'rgba(224, 72, 59, 0.2)', color: '#E0483B', border: '1px solid rgba(224, 72, 59, 0.3)' }}
-                  title="Copy to clipboard"
+                  title={pick(language, '复制到剪贴板', 'Copy to clipboard', 'Salin ke clipboard')}
                 >
                   <span>📋</span>
                 </button>
@@ -325,7 +325,7 @@ export function DecisionCard({ decision, language, onSymbolClick }: DecisionCard
                   }}
                   className="text-xs px-2.5 py-1 rounded hover:opacity-80 transition-opacity flex items-center gap-1"
                   style={{ background: 'rgba(224, 72, 59, 0.2)', color: '#E0483B', border: '1px solid rgba(224, 72, 59, 0.3)' }}
-                  title="Download as file"
+                  title={pick(language, '下载为文件', 'Download as file', 'Unduh sebagai file')}
                 >
                   <span>💾</span>
                 </button>
@@ -373,7 +373,7 @@ export function DecisionCard({ decision, language, onSymbolClick }: DecisionCard
                   }}
                   className="text-xs px-2.5 py-1 rounded hover:opacity-80 transition-opacity flex items-center gap-1"
                   style={{ background: 'rgba(224, 72, 59, 0.2)', color: '#E0483B', border: '1px solid rgba(224, 72, 59, 0.3)' }}
-                  title="Copy to clipboard"
+                  title={pick(language, '复制到剪贴板', 'Copy to clipboard', 'Salin ke clipboard')}
                 >
                   <span>📋</span>
                 </button>
@@ -384,7 +384,7 @@ export function DecisionCard({ decision, language, onSymbolClick }: DecisionCard
                   }}
                   className="text-xs px-2.5 py-1 rounded hover:opacity-80 transition-opacity flex items-center gap-1"
                   style={{ background: 'rgba(224, 72, 59, 0.2)', color: '#E0483B', border: '1px solid rgba(224, 72, 59, 0.3)' }}
-                  title="Download as file"
+                  title={pick(language, '下载为文件', 'Download as file', 'Unduh sebagai file')}
                 >
                   <span>💾</span>
                 </button>

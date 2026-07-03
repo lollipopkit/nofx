@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { pick } from '../../i18n/translations'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 /**
  * OrderBook renders a live L2 depth ladder for a single instrument, streamed
@@ -58,6 +60,7 @@ interface OrderBookProps {
 }
 
 export function OrderBook({ symbol, markPrice }: OrderBookProps) {
+  const { language } = useLanguage()
   const base = useMemo(() => baseSymbol(symbol || ''), [symbol])
   const [xyzSet, setXyzSet] = useState<Set<string>>(new Set())
   const [book, setBook] = useState<BookState | null>(null)
@@ -189,7 +192,7 @@ export function OrderBook({ symbol, markPrice }: OrderBookProps) {
   return (
     <div style={{ fontFamily: 'var(--tm-mono)' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-        <span className="tm-px" style={{ fontSize: 11 }}>Order book</span>
+        <span className="tm-px" style={{ fontSize: 11 }}>{pick(language, '订单簿', 'Order book', 'Order book')}</span>
         <span className="tm-sc">L2 · {coin || base || '—'}</span>
         <span
           className="tm-sc"

@@ -12,7 +12,10 @@ func TestBuildSystemPromptUsesVergexClaw402Prompt(t *testing.T) {
 	cfg.CoinSource.SourceType = "vergex_signal"
 	cfg.CoinSource.VergexLimit = 5
 	cfg.PromptSections.RoleDefinition = "# You are a professional Hyperliquid USDC multi-asset trading AI"
-	cfg.CustomPrompt = "Long only, no shorts."
+	// A non-directional preference: the vergex role appends it verbatim as a
+	// "User Preference" section, so it must not smuggle in a long-only bias
+	// that the legacy-phrase guard below is meant to catch in the template.
+	cfg.CustomPrompt = "Prioritize high-conviction setups."
 
 	engine := NewStrategyEngine(&cfg)
 	prompt := engine.BuildSystemPrompt(30, "balanced")
@@ -61,11 +64,13 @@ func TestBuildSystemPromptFallsBackToEnglishWhenConfiguredLanguageIsChinese(t *t
 	cfg.CoinSource.VergexLimit = 0
 	cfg.CoinSource.VergexMarketType = ""
 	cfg.CoinSource.VergexChain = ""
-	cfg.PromptSections.RoleDefinition = "# You are a Chinese system prompt"
-	cfg.PromptSections.TradingFrequency = "# High-frequency trading\nTrade every minute."
-	cfg.PromptSections.EntryStandards = "# Entry\nOpen positions freely."
-	cfg.PromptSections.DecisionProcess = "# Decision\nOutput directly."
-	cfg.CustomPrompt = "Chinese preference should not enter the system prompt."
+	// Chinese custom sections must be dropped (englishOnlyPromptSection filters
+	// CJK), so the builder falls back to its English defaults.
+	cfg.PromptSections.RoleDefinition = "# 你是一个中文系统提示词"
+	cfg.PromptSections.TradingFrequency = "# 高频交易\n每分钟都交易。"
+	cfg.PromptSections.EntryStandards = "# 入场标准\n随意开仓。"
+	cfg.PromptSections.DecisionProcess = "# 决策流程\n直接输出结果。"
+	cfg.CustomPrompt = "中文偏好不应进入系统提示词。"
 
 	engine := NewStrategyEngine(&cfg)
 	prompt := engine.BuildSystemPrompt(30, "balanced")

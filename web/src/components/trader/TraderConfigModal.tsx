@@ -7,7 +7,7 @@ import type {
   TraderConfigData,
 } from '../../types'
 import { useLanguage } from '../../contexts/LanguageContext'
-import { t } from '../../i18n/translations'
+import { t, pick } from '../../i18n/translations'
 import {
   Pencil,
   Plus,
@@ -379,17 +379,17 @@ export function TraderConfigModal({
                   </div>
                   <p className="text-sm text-nofx-text-muted mb-2">
                     {selectedStrategy.description ||
-                      (language === 'zh' ? 'No description' : 'No description')}
+                      (pick(language, '无描述', 'No description', 'Tanpa deskripsi'))}
                   </p>
                   {selectedStrategy.config.strategy_type === 'grid_trading' &&
                   selectedStrategy.config.grid_config ? (
                     <div className="grid grid-cols-2 gap-2 text-xs text-nofx-text-muted">
                       <div>
-                        {language === 'zh' ? 'Symbol' : 'Symbol'}:{' '}
+                        {pick(language, '标的', 'Symbol', 'Simbol')}:{' '}
                         {selectedStrategy.config.grid_config.symbol || '-'}
                       </div>
                       <div>
-                        {language === 'zh' ? 'Grids' : 'Grids'}:{' '}
+                        {pick(language, '网格', 'Grids', 'Grid')}:{' '}
                         {selectedStrategy.config.grid_config.grid_count}
                       </div>
                     </div>

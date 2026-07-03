@@ -19,7 +19,6 @@ import { TelegramConfigModal } from './TelegramConfigModal'
 import { ModelConfigModal } from './ModelConfigModal'
 import { ConfigStatusGrid } from './ConfigStatusGrid'
 import { TradersList } from './TradersList'
-import { AutopilotLaunchPanel } from './AutopilotLaunchPanel'
 import { Bot, Plus, MessageCircle } from 'lucide-react'
 import { confirmToast } from '../../lib/notify'
 import { toast } from 'sonner'
@@ -671,10 +670,6 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
     setSearchParams(nextParams, { replace: true })
   }, [allExchanges, allModels, searchParams, setSearchParams, supportedModels, token, user])
 
-  const refreshLaunchState = async () => {
-    await Promise.all([loadConfigs(), mutateTraders()])
-  }
-
   return (
     <DeepVoidBackground className="py-8" disableAnimation>
       <div className="w-full px-4 md:px-8 space-y-8 animate-fade-in">
@@ -764,18 +759,6 @@ export function AITradersPage({ onTraderSelect }: AITradersPageProps) {
           onExchangeClick={handleExchangeClick}
           onToggleExchangeAddress={toggleExchangeAddressVisibility}
           onCopyAddress={handleCopyAddress}
-        />
-
-        <AutopilotLaunchPanel
-          models={allModels}
-          exchanges={allExchanges}
-          exchangeAccountStates={exchangeAccountStates}
-          traders={traders || []}
-          isLoggedIn={Boolean(user && token)}
-          language={language}
-          onRefresh={refreshLaunchState}
-          onOpenClaw402Config={handleOpenClaw402Config}
-          onOpenHyperliquidConfig={handleOpenHyperliquidConfig}
         />
 
         {/* Traders List */}

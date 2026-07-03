@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { HelpCircle } from 'lucide-react'
 import { DeepVoidBackground } from '../common/DeepVoidBackground'
-import { t, type Language } from '../../i18n/translations'
+import { t, type Language, pick } from '../../i18n/translations'
 import { FAQSearchBar } from './FAQSearchBar'
 import { FAQSidebar } from './FAQSidebar'
 import { FAQContent } from './FAQContent'
@@ -80,7 +80,7 @@ export function FAQLayout({ language }: FAQLayoutProps) {
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
               placeholder={
-                language === 'zh' ? 'Search FAQ...' : 'Search FAQ...'
+                pick(language, '搜索 FAQ...', 'Search FAQ...', 'Cari FAQ...')
               }
             />
           </div>
@@ -109,9 +109,7 @@ export function FAQLayout({ language }: FAQLayoutProps) {
             ) : (
               <div className="text-center py-12">
                 <p className="text-lg" style={{ color: '#8A8478' }}>
-                  {language === 'zh'
-                    ? 'No matching questions found'
-                    : 'No matching questions found'}
+                  {pick(language, '未找到匹配的问题', 'No matching questions found', 'Tidak ada pertanyaan yang cocok')}
                 </p>
                 <button
                   onClick={() => setSearchTerm('')}
@@ -121,7 +119,7 @@ export function FAQLayout({ language }: FAQLayoutProps) {
                     color: '#F1ECE2',
                   }}
                 >
-                  {language === 'zh' ? 'Clear Search' : 'Clear Search'}
+                  {pick(language, '清除搜索', 'Clear Search', 'Hapus pencarian')}
                 </button>
               </div>
             )}

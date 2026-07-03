@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { pick } from '../i18n/translations'
 import { toast } from 'sonner'
 import {
   User,
@@ -340,7 +341,7 @@ export function SettingsPage() {
       style={{ background: '#F1ECE2' }}
     >
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-xl font-bold text-nofx-text mb-6">Settings</h1>
+        <h1 className="text-xl font-bold text-nofx-text mb-6">{pick(language, '设置', 'Settings', 'Pengaturan')}</h1>
 
         {/* Tabs */}
         <div className="flex gap-1 mb-6 bg-nofx-bg-lighter border border-[rgba(26,24,19,0.14)] rounded-xl p-1">
@@ -367,18 +368,18 @@ export function SettingsPage() {
           {activeTab === 'account' && (
             <div className="space-y-6">
               <div>
-                <p className="text-xs text-nofx-text-muted mb-1">Email</p>
+                <p className="text-xs text-nofx-text-muted mb-1">{pick(language, '邮箱', 'Email', 'Email')}</p>
                 <p className="text-sm text-nofx-text font-medium">{user?.email}</p>
               </div>
 
               <div className="border-t border-[rgba(26,24,19,0.14)] pt-6">
                 <h3 className="text-sm font-semibold text-nofx-text mb-4">
-                  Change Password
+                  {pick(language, '修改密码', 'Change Password', 'Ubah Kata Sandi')}
                 </h3>
                 <form onSubmit={handleChangePassword} className="space-y-4">
                   <div>
                     <label className="block text-xs font-medium text-nofx-text-muted mb-2">
-                      New Password
+                      {pick(language, '新密码', 'New Password', 'Kata Sandi Baru')}
                     </label>
                     <div className="relative">
                       <input
@@ -386,7 +387,7 @@ export function SettingsPage() {
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         className="w-full bg-nofx-bg-deeper border border-[rgba(26,24,19,0.14)] rounded-xl px-4 py-3 pr-11 text-sm text-nofx-text placeholder-nofx-text-muted focus:outline-none focus:border-nofx-gold/60 focus:ring-1 focus:ring-nofx-gold/30 transition-all"
-                        placeholder="At least 8 characters"
+                        placeholder={pick(language, '至少 8 个字符', 'At least 8 characters', 'Minimal 8 karakter')}
                         required
                       />
                       <button

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import type { TraderInfo, Exchange } from '../../types'
 import type { Language } from '../../i18n/translations'
-import { t } from '../../i18n/translations'
+import { t, pick } from '../../i18n/translations'
 import { PunkAvatar, getTraderAvatar } from '../common/PunkAvatar'
 import {
   getModelDisplayName,
@@ -266,7 +266,7 @@ function TraderRow({
                 onToggleTraderAddress(trader.trader_id)
               }}
               className="p-0.5 rounded hover:bg-nofx-bg-deeper transition-colors"
-              title={isVisible ? (language === 'zh' ? 'Hide' : 'Hide') : (language === 'zh' ? 'Show' : 'Show')}
+              title={isVisible ? (pick(language, '隐藏', 'Hide', 'Sembunyikan')) : (pick(language, '显示', 'Show', 'Tampilkan'))}
             >
               {isVisible ? (
                 <EyeOff className="w-3 h-3" style={{ color: '#8A8478' }} />
@@ -281,7 +281,7 @@ function TraderRow({
                 onCopyAddress(trader.trader_id, walletAddr)
               }}
               className="p-0.5 rounded hover:bg-nofx-bg-deeper transition-colors"
-              title={language === 'zh' ? 'Copy' : 'Copy'}
+              title={pick(language, '复制', 'Copy', 'Salin')}
             >
               {isCopied ? (
                 <Check className="w-3 h-3" style={{ color: '#2E8B57' }} />
